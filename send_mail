@@ -1,0 +1,20 @@
+import smtplib
+import time
+import random
+SenderAddress = "SenderAddress@gmail.com"
+password = "senders_email_password"
+server = smtplib.SMTP("smtp.gmail.com", 587)
+server.starttls()
+server.login(SenderAddress, password)
+msg = "TYPE YOUR MESSAGE HERE"   #edit it
+subject = "TYPE SUBJECT OF EMAIL HERE"  #edit it
+body = "Subject: {}\n\n{}".format(subject,msg)
+with open('email.txt','r') as f:
+    for email in f:
+        try:
+            time.sleep(random.randrange(11,15))
+            server.sendmail(SenderAddress, email, body)
+            print(f'Mail Send To ! {email}')
+        except:
+            print("email not found")
+server.quit()
